@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Phone Shop</title>
     <link
       href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"
       rel="stylesheet"
@@ -12,6 +12,32 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
+    <main>
+      <section>
+        <div class="text-center mt-6">
+          <h1 class="text-3xl font-bold mb-4">Search Phone</h1>
+          <input
+          id="search-input"
+            type="text"
+            placeholder="Search phone"
+            class="input input-bordered input-info w-full max-w-xs"
+          />
+          <button onclick="searchImplement()" class="btn btn-primary text-xl">Search</button>
+        </div>
+
+        <div
+          id="phone-card-container"
+          class="mt-16 grid grid-cols-3 gap-8 max-w-[1440px] mx-auto"
+        >
+        
+      </div>
+      <div class="text-center mt-8 mb-16">
+        <button onclick="" class="btn btn-primary text-xl">See All</button>
+      </div>
+
+        
+      </section>
+    </main>
     <script src="js/index.js"></script>
   </body>
 </html>
