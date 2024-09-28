@@ -2,24 +2,40 @@
 // .then( res => res.json())
 // .then(data => console.log(data))
 
-const allMobile = async (searchText) => {
+const allMobile = async (searchText="a", isShow) => {
+
   const res = await fetch(
     `https://openapi.programming-hero.com/api/phones?search=${searchText}`
   );
   const data = await res.json();
-  displayData(data.data);
+  displayData(data.data, isShow);
 };
 
-allMobile('a')
+allMobile();
 
-
-const displayData = (mobilesInfo) => {
+const displayData = (mobilesInfo, isShow) => {
   const phoneCardContainer = document.getElementById("phone-card-container");
+  phoneCardContainer.innerText = "";
 
-  phoneCardContainer.innerText = ''
+  const seeAllContainer = document.getElementById("see-all-container");
+  if (mobilesInfo.length <= 9) {
+    seeAllContainer.classList.add("hidden");
+  } else {
+    seeAllContainer.classList.remove("hidden");
+  }
+ 
+let phone;
+  if (!isShow) {
+    phone = mobilesInfo.slice(0, 9)
+  }
+  else{
+    phone = mobilesInfo
+    seeAllContainer.classList.add("hidden");
+  }
+ 
 
-  mobilesInfo.slice(0,9).forEach((mobileInfo) => {
-    
+
+  phone.forEach((mobileInfo) => {
     const div = document.createElement("div");
     div.innerHTML = `
         <div class="card bg-base-100 w-96 shadow-xl">
@@ -34,17 +50,59 @@ const displayData = (mobilesInfo) => {
               <p>There are many variations of passages of available, but the majority have suffered</p>
                <h2 class="card-title">Price: $999</h2>
               <div class="card-actions">
-                <button class="btn btn-primary">Show Details</button>
+                <label for="my_modal_6" class="btn btn-primary" onclick="detailsButton('${mobileInfo.slug}')">Show Details</label>
               </div>
             </div>
           </div>
 `;
     phoneCardContainer.appendChild(div);
   });
+  loading(false)
 };
 
-const searchImplement = () =>{
-    const searchInput = document.getElementById('search-input')
-    const searchText = searchInput.value    
-    allMobile(searchText)
+
+const searchImplement = (isShow) => {
+  loading(true)
+  const searchInput = document.getElementById("search-input");
+  const searchText = searchInput.value;
+  if (searchText.length === 0) {
+    allMobile('a', isShow);
+  }
+  else{
+    allMobile(searchText, isShow);
+  }
+};
+
+const seeAllClick = () => {
+  const isShow = true;
+ searchImplement(isShow)
 }
+
+
+const detailsButton =async(id) => {
+const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
+const data = await res.json()
+console.log(data.data.mainFeatures.sensors);
+console.log(data.data.mainFeatures.sensors[3]);
+
+const modalBody = document.getElementById('modal-body')
+modalBody.innerText = ''
+const div = document.createElement('div')
+div.innerHTML = `
+<img src="${data.data.image}"/>
+`
+modalBody.appendChild(div)
+}
+
+
+const loading = (data) =>{
+  const loaderContainer = document.getElementById('loader') 
+  if (data === true) {
+    loaderContainer.classList.remove("hidden")
+  }
+  else{
+    loaderContainer.classList.add("hidden")
+  }
+}
+
+

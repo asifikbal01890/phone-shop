@@ -17,25 +17,44 @@
         <div class="text-center mt-6">
           <h1 class="text-3xl font-bold mb-4">Search Phone</h1>
           <input
-          id="search-input"
+            id="search-input"
             type="text"
             placeholder="Search phone"
             class="input input-bordered input-info w-full max-w-xs"
           />
-          <button onclick="searchImplement()" class="btn btn-primary text-xl">Search</button>
+          <button onclick="searchImplement()" class="btn btn-primary text-xl">
+            Search
+          </button>
         </div>
-
+        <div id="loader" class="text-center hidden">
+          <span class="loading loading-spinner loading-lg"></span>
+        </div>
         <div
           id="phone-card-container"
           class="mt-16 grid grid-cols-3 gap-8 max-w-[1440px] mx-auto"
-        >
-        
-      </div>
-      <div class="text-center mt-8 mb-16">
-        <button onclick="" class="btn btn-primary text-xl">See All</button>
-      </div>
+        ></div>
+        <div id="see-all-container" class="text-center mt-8 mb-16">
+          <button onclick="seeAllClick()" class="btn btn-primary text-xl">
+            See All
+          </button>
+        </div>
 
-        
+        <div>
+          
+
+          <!-- Put this part before </body> tag -->
+          <input type="checkbox" id="my_modal_6" class="modal-toggle" />
+          <div class="modal">
+            <div class="modal-box">
+             <div id="modal-body">
+
+             </div>
+              <div class="modal-action">
+                <label for="my_modal_6" class="btn">Close!</label>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
     <script src="js/index.js"></script>
